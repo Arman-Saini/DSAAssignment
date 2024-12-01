@@ -1,28 +1,26 @@
 #include <iostream>
 #include <unordered_map>
-#include <vector>
-
 using namespace std;
 
-bool check(vector<int>& arr, int x) {
-    unordered_map<int, bool> ht;
-    for (int i : arr) {
-        int y = x - i;
-        if (ht.find(y) != ht.end()) {
-            return true;
-        }
-        ht[i] = true;
+int mostFrequentElement(int arr[], int n) {
+    unordered_map<int, int> freqMap;
+    for (int i = 0; i < n; i++) {
+        freqMap[arr[i]]++;
     }
-    return false;
+
+    int maxFreq = 0, mostFreqElement = -1;
+    for (const auto& pair : freqMap) {
+        if (pair.second > maxFreq) {
+            maxFreq = pair.second;
+            mostFreqElement = pair.first;
+        }
+    }
+    return mostFreqElement;
 }
 
 int main() {
-    vector<int> a = {1, 4, 3, 5, 2};
-    int x = 6;
-    if (check(a, x)) {
-        cout << "Yes, there exists a pair";
-    } else {
-        cout << "No, there is no pair";
-    }
+    int arr[] = {1, 3, 2, 2, 4, 3, 3};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    cout << "Most frequent element: " << mostFrequentElement(arr, n) << endl;
     return 0;
 }
